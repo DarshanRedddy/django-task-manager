@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task Manager</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'tasks/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Task Manager</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="title" placeholder="Enter task">
+            <br>
+            <button type="submit">Add</button>
+        </form>
+
+        <ul>
+            {% for task in tasks %}
+                <li>
+                    {{ task.title }}
+                    <a href="{% url 'delete_task' task.id %}">❌</a>
+                </li>
+            {% endfor %}
+        </ul>
+        {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+<ul>
+    {% for task in tasks %}
+      <li>
+        {% if task.completed %}
+          <s>{{ task.title }}</s>
+        {% else %}
+          {{ task.title }}
+        {% endif %}
+        <a href="{% url 'toggle_complete' task.id %}">✅</a>
+        <a href="{% url 'delete_task' task.id %}" onclick="return confirm('Are you sure you want to delete this task?')">❌</a>
+      </li>
+    {% endfor %}
+  </ul>
+  <form method="POST" action="{% url 'clear_all' %}">
+    {% csrf_token %}
+    <button type="submit" onclick="return confirm('Clear all tasks?')">🧽 Clear All</button>
+</form>
+
+    </div>
+</body>
+</html>
