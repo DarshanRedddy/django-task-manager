@@ -1,138 +1,65 @@
-/* ---------- GLOBAL STYLING ---------- */
 body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #f8f9fa, #e9ecef);
     margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Roboto, sans-serif;
-    background: linear-gradient(to right, #ece9e6, #ffffff);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 20px;
 }
 
-/* ---------- CONTAINER ---------- */
 .container {
+    max-width: 800px;
+    margin: auto;
     background: #ffffff;
-    width: 100%;
-    max-width: 500px;
-    padding: 30px 40px;
-    border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
 }
 
-/* ---------- HEADLINE ---------- */
-h1 {
-    text-align: center;
-    font-weight: 600;
-    font-size: 28px;
+h1, h2 {
     color: #343a40;
-    margin-bottom: 25px;
+    text-align: center;
 }
 
-/* ---------- FORM ---------- */
 form {
     display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    margin-bottom: 20px;
     flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
-form input[type="text"] {
-    flex: 1;
-    padding: 10px 12px;
-    border-radius: 6px;
-    border: 1px solid #ced4da;
-    font-size: 16px;
+form input, form select, form button {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 form button {
-    background-color: #007bff;
-    border: none;
+    background-color: #28a745;
     color: white;
-    padding: 10px 18px;
-    border-radius: 6px;
     cursor: pointer;
-    font-size: 15px;
-    transition: background-color 0.3s ease;
 }
 
 form button:hover {
-    background-color: #0056b3;
+    background-color: #218838;
 }
 
-/* ---------- TASK LIST ---------- */
-ul {
-    list-style: none;
+ul.task-list {
+    list-style-type: none;
     padding: 0;
-    margin: 0;
 }
 
-li {
-    background: #f8f9fa;
-    padding: 10px 12px;
-    border-radius: 6px;
-    margin-bottom: 10px;
-    font-size: 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+ul.task-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
 }
 
-li s {
-    color: #888;
+.task-actions {
+    float: right;
 }
 
-li a {
-    text-decoration: none;
-    color: #dc3545;
-    font-weight: bold;
-    margin-left: 10px;
-}
-
-li a:hover {
-    color: #c82333;
-}
-
-/* ---------- MESSAGES ---------- */
-.messages {
-    margin-bottom: 15px;
-    padding: 10px 15px;
-    border-radius: 5px;
-    font-size: 14px;
-    text-align: center;
-}
-
-.success {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-}
-
-.warning {
-    background-color: #fff3cd;
-    color: #856404;
-    border: 1px solid #ffeeba;
-}
-
-/* ---------- CLEAR ALL BUTTON ---------- */
-.clear-all-form {
-    text-align: center;
-    margin-top: 10px;
-}
-
-.clear-all-form button {
-    background-color: #6c757d;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 6px;
-    color: white;
-    font-size: 14px;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: background-color 0.3s ease;
-}
-
-.clear-all-form button:hover {
-    background-color: #5a6268;
+.stats {
+    background: #f1f1f1;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
 }
