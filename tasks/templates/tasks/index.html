@@ -2,72 +2,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Task Manager</title>
-    <link rel="stylesheet" href="{% static 'tasks/styles.css' %}">
+  <meta charset="UTF-8">
+  <title>Task Manager</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'tasks/style.css' %}">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      padding: 40px 0;
+    }
+    .card {
+      margin-bottom: 20px;
+    }
+    .badge {
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-    <h1>🧠 Smart Task Manager</h1>
-
-    <form method="get">
-        <input type="text" name="search" placeholder="Search tasks..." value="{{ search }}">
-        <select name="filter">
-            <option value="">All</option>
-            <option value="completed" {% if filter == 'completed' %}selected{% endif %}>Completed</option>
-            <option value="pending" {% if filter == 'pending' %}selected{% endif %}>Pending</option>
-        </select>
-        <button type="submit">Filter</button>
-    </form>
-
-    <div class="stats">
-        <strong>Total:</strong> {{ stats.total }} |
-        <strong>Completed:</strong> {{ stats.completed }} |
-        <strong>Pending:</strong> {{ stats.pending }} |
-        <strong>Today:</strong> {{ stats.today }} |
-        <strong>Overdue:</strong> {{ stats.overdue }}
+  <div class="container">
+    <div class="text-center mb-4">
+      <h1 class="fw-bold text-primary">🗂️ Task Manager</h1>
     </div>
 
-    <form method="POST" action="{% url 'add_task' %}">
-        {% csrf_token %}
-        <input type="text" name="title" placeholder="New task..." required>
-        <input type="text" name="category" placeholder="Category">
-        <input type="date" name="due_date">
-        <select name="priority">
-            <option value="High">High</option>
-            <option value="Medium" selected>Medium</option>
-            <option value="Low">Low</option>
+    <div class="row text-center mb-4">
+      <div class="col">
+        <span class="badge bg-primary">Total: {{ stats.total }}</span>
+      </div>
+      <div class="col">
+        <span class="badge bg-success">✅ Completed: {{ stats.completed }}</span>
+      </div>
+      <div class="col">
+        <span class="badge bg-warning text-dark">🕒 Pending: {{ stats.pending }}</span>
+      </div>
+      <div class="col">
+        <span class="badge bg-info text-dark">📅 Today: {{ stats.today }}</span>
+      </div>
+      <div class="col">
+        <span class="badge bg-danger">⚠️ Overdue: {{ stats.overdue }}</span>
+      </div>
+    </div>
+
+    <form method="post" class="row g-3 mb-4">
+      {% csrf_token %}
+      <div class="col-md-4">
+        <input type="text" name="title" class="form-control" placeholder="Task Title" required>
+      </div>
+      <div class="col-md-2">
+        <input type="text" name="category" class="form-control" placeholder="Category">
+      </div>
+      <div class="col-md-2">
+        <input type="date" name="due_date" class="form-control">
+      </div>
+      <div class="col-md-2">
+        <select name="priority" class="form-select">
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
         </select>
-        <select name="repeat">
-            <option value="None" selected>None</option>
-            <option value="Daily">Daily</option>
-            <option value="Weekly">Weekly</option>
-            <option value="Monthly">Monthly</option>
+      </div>
+      <div class="col-md-2">
+        <select name="repeat" class="form-select">
+          <option value="None">None</option>
+          <option value="Daily">Daily</option>
+          <option value="Weekly">Weekly</option>
         </select>
-        <button type="submit">➕ Add</button>
+      </div>
+      <div class="col-md-12 text-end">
+        <button type="submit" class="btn btn-success">➕ Add Task</button>
+      </div>
     </form>
 
-    <ul class="task-list">
-        {% for task in tasks %}
-            <li>
-                {% if task.completed %}
-                    <s>{{ task.title }}</s>
-                {% else %}
-                    {{ task.title }}
-                {% endif %}
-                <small> | {{ task.category }} | Due: {{ task.due_date }} | Priority: {{ task.priority }}</small>
-                <span class="task-actions">
-                    <a href="{% url 'toggle_complete' task.id %}">✅</a>
-                    <a href="{% url 'delete_task' task.id %}" onclick="return confirm('Delete task?')">❌</a>
-                </span>
-            </li>
-        {% endfor %}
-    </ul>
+    {% for task in tasks %}
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <h5 class="card-title">{{ task.title }}</h5>
+            {% if task.completed %}
+              <span class="badge bg-success">✔ Done</span>
+            {% else %}
+              <span class="badge bg-warning text-dark">❌ Pending</span>
+            {% endif %}
+          </div>
+          <p class="card-text">
+            <small class="text-muted">
+              📅 Due: {{ task.due_date|default:"No date" }} | 🔁 Repeat: {{ task.repeat }} | 🏷️ Priority: {{ task.priority }}
+            </small>
+          </p>
+          <a href="{% url 'toggle_complete' task.id %}" class="btn btn-outline-primary btn-sm">🔄 Toggle</a>
+          <a href="{% url 'delete_task' task.id %}" class="btn btn-outline-danger btn-sm">🗑 Delete</a>
+        </div>
+      </div>
+    {% empty %}
+      <div class="alert alert-secondary text-center">No tasks yet. Add one above!</div>
+    {% endfor %}
 
-    <form method="POST" action="{% url 'clear_all' %}">
-        {% csrf_token %}
-        <button type="submit" onclick="return confirm('Clear all tasks?')">🧽 Clear All</button>
+    <form method="post" action="{% url 'clear_all' %}" class="text-center mt-4">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">🧹 Clear All</button>
     </form>
-</div>
+  </div>
 </body>
 </html>
