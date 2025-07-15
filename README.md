@@ -1,10 +1,9 @@
-# 📝 Django Task Manager
+📝 Django Task Manager
 
 A full-featured, responsive task management web application built with Django and styled using Bootstrap 5. Designed to help users efficiently manage, prioritize, and track daily tasks with advanced features like analytics, reminders, and history tracking.
 
----
 
-## 🚀 Features
+ 🚀 Features
 
 - ✅ Create & Manage Tasks — Add, edit, delete, or mark tasks as complete/incomplete
 - 📅 Due Dates & Repeating Tasks — Set deadlines and choose from Daily, Weekly, or Monthly repeat options
@@ -16,9 +15,8 @@ A full-featured, responsive task management web application built with Django an
 - 📱 Mobile-Responsive UI — Fully responsive layout using Bootstrap 5
 - 🎨 Clean Visuals — Badge indicators, color-coded statuses, and card-based layout
 
----
 
-## 🛠️ Tech Stack
+ 🛠️ Tech Stack
 
 | Layer         | Technology            |
 |---------------|-----------------------|
@@ -29,7 +27,7 @@ A full-featured, responsive task management web application built with Django an
 
 ---
 
-## 🧑‍💻 Getting Started
+ 🧑‍💻 Getting Started
 
 Follow the steps below to run this project locally:
 
