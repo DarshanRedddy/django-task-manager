@@ -25,14 +25,14 @@ A full-featured, responsive task management web application built with Django an
 | Database      | SQLite (default)      |
 | Versioning    | Git & GitHub          |
 
----
+
 
  🧑‍💻 Getting Started
 
 Follow the steps below to run this project locally:
 
 ```bash
-# 1. Clone the repository
+**# 1. Clone the repository
 git clone https://github.com/DarshanRedddy/django-task-manager.git
 cd django-task-manager
 
@@ -45,4 +45,4 @@ pip install -r requirements.txt
 
 # 4. Apply migrations and start the development server
 python manage.py migrate
-python manage.py runserver
+python manage.py runserver**
